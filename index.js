@@ -10,10 +10,10 @@ app.get('/', (req, res) => {
 });
 app.listen(3000);
 
-const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY_HERE'; 
-const SERVER_HOST = 'localhost';                  
-const SERVER_PORT = 25565;                        
-const BOT_NAME = 'My_Custom_Bot';                 
+const GEMINI_API_KEY = 'AIzaSyDTOAz60BoYleAtvqouzdZLylQ7qQdFOko'; 
+const SERVER_HOST = 'MrPro431.aternos.me';                  
+const SERVER_PORT = 39135;                        
+const BOT_NAME = 'MrPro2.0';                 
 
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 let deathLocation = null; 
