@@ -3,6 +3,7 @@ const { pathfinder, Movements, goals } = require('mineflayer-pathfinder');
 const GoalFollow = goals.GoalFollow;
 const { GoogleGenAI } = require('@google/genai');
 const express = require('express');
+const vec3 = require('vec3'); // Added missing dependency
 
 const app = express();
 app.get('/', (req, res) => {
@@ -12,8 +13,8 @@ app.listen(3000);
 
 const GEMINI_API_KEY = 'AIzaSyDTOAz60BoYleAtvqouzdZLylQ7qQdFOko'; 
 const SERVER_HOST = 'MrPro431.aternos.me';                  
-const SERVER_PORT = 39135;                        
-const BOT_NAME = 'MrPro2.0';                 
+const SERVER_PORT = 39135;                                 
+const BOT_NAME = 'MrPro2.0';                                 
 
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 let deathLocation = null; 
@@ -27,7 +28,8 @@ const bot = mineflayer.createBot({
 bot.loadPlugin(pathfinder);
 
 bot.once('spawn', () => {
-  bot.chat(Hello! I am ${bot.username}, an AI Companion. Ask me anything!);
+  // Fixed syntax here using backticks
+  bot.chat(`Hello! I am ${bot.username}, an AI Companion. Ask me anything!`);
   startExploring();
 });
 
@@ -85,7 +87,8 @@ bot.on('entityHurt', (entity) => {
   if (entity === bot.entity) {
     const attacker = bot.nearestEntity((e) => e.type === 'player' || e.type === 'hostile');
     if (attacker) {
-      bot.chat(Hey ${attacker.username || attacker.name}! Take this!);
+      // Fixed syntax here using backticks
+      bot.chat(`Hey ${attacker.username || attacker.name}! Take this!`);
       bot.lookAt(attacker.position, true, () => {
         bot.attack(attacker);
       });
@@ -162,9 +165,10 @@ bot.on('chat', async (username, message) => {
   }
 
   try {
+    // Fixed syntax here using backticks
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
-      contents: You are a helpful Minecraft Robot named ${BOT_NAME}. A player named ${username} said: "${message}". Reply to them in short and clean English (max 15 words) as a gamer friend.,
+      contents: `You are a helpful Minecraft Robot named ${BOT_NAME}. A player named ${username} said: "${message}". Reply to them in short and clean English (max 15 words) as a gamer friend.`,
     });
     const aiReply = response.text.trim();
     bot.chat(aiReply);
